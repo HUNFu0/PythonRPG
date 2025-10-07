@@ -1,0 +1,20 @@
+"Slot1":{
+    "Type":"Item",
+    "Name":"Potion of healing",
+    "Effect":{
+        "Heal":{
+            "InCombat":True,
+            "Type":"Flat",
+            "Amount":35
+        }
+    }
+},
+
+"Slot2":{
+    "Type":"Artifact",
+    "Name":"Magic enabler",
+    "Effect":{
+        "MagicCrit":True,
+        "Poison_Immune":True
+    }
+},

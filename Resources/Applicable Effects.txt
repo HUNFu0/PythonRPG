@@ -1,0 +1,76 @@
+Dot:
+Name, Duration, Dmg/Heal
+
+    Positive:
+        "Regen":{
+            "Duration":2,
+            "Heal":25
+        },
+        
+
+    Negative:
+        "Poison":{
+            "Duration":20,
+            "Dmg":10
+        },
+        "Fire":{
+            "Duration":4,
+            "Dmg":45
+        },
+        "Corruption":{
+            "Duration":2,
+            "Dmg":70
+        },
+
+
+Buffs/DeBuffs:
+Name, Duration, Amount
+
+    Positive:
+        "Shielded":{
+            "Duration":2,
+            "Amount":80
+        }
+        
+
+    Negative:
+        "Corruption_Touched":{
+            "Duration":2,
+            "Amount":1
+        }
+        
+
+Statuses:
+Name, Duration
+
+    Positive:
+        "Immortal":{
+            "Duration":2
+        },
+        "Miasma":{
+            "Duration":2
+        },
+
+        "Heal_Increase":{
+            "Duration":2
+        }
+    
+    Negative:
+        "Disarmed":{
+            "Duration":2
+        },
+        "In_Air":{
+            "Duration":2
+        },
+        "Stunned":{
+            "Duration":2
+        },
+        "Fragile":{
+            "Duration":2
+        },
+        "Weak":{
+            "Duration":2
+        },
+        "Heal_Decrease":{
+            "Duration":2
+        }

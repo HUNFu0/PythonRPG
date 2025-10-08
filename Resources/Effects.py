@@ -30,17 +30,39 @@ def Effect_Duration(Full_Effects,Victim):
     
 def Effect_Applier(Type,Name,Duration,Amount,Full_Effects):
     if Type=="Dot": 
-        has = Effect_checker(Full_Effects,Name)
-        if has == True:
-            if Name == "Regen":
-                Full_Effects["Regen"]["Duration"]+=Duration
-                Full_Effects["Regen"]["Heal"]+=Amount
-            else:
-                Full_Effects[Name]["Duration"]+=Duration
-                Full_Effects[Name]["Dmg"]+=Amount
+        if Effect_checker(Full_Effects,Name):
+            Full_Effects[Name]["Duration"] += Duration
+            Full_Effects[Name]["Dmg"] += Amount
         else:
-            if Name == "Regen":
-                dict(Full_Effects)={}
+            Full_Effects={
+                Name:{
+                    "Duration":Duration,
+                    "Dmg":Amount
+                }
+            }
+    elif Type=="Buff":
+        if Effect_checker(Full_Effects,Name):
+            Full_Effects[Name]["Duration"] += Duration
+            Full_Effects[Name]["Amount"] += Amount
+        else:
+            Full_Effects={
+                Name:{
+                    "Duration":Duration,
+                    "Amount":Amount
+                }
+            }
+    elif Type=="Status":
+        if Effect_checker(Full_Effects,Name):
+            Full_Effects[Name]["Duration"]+=Duration
+        else:
+            Full_Effects={
+                Name:{
+                    "Duration":Duration
+                }
+            }
+
+
+        
 
 
 

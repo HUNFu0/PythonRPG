@@ -116,6 +116,7 @@ def FireClac(Victim,FireDMG):
 def CorruptionClac(Victim,Full_Effects):
     import Status_checker
     from Effects import Effect_checker
+    import Effects
     CorruptionDMG = Full_Effects["Corruption"]["Dmg"]
     if Effect_checker(Full_Effects,"Corruption_Touched"):
         multiplier = (Full_Effects["Corruption_Touched"]["Amount"]*0.15)+1
@@ -128,6 +129,7 @@ def CorruptionClac(Victim,Full_Effects):
             return 0
         else:
             print(CorruptionDMG,"\033[35mCorruption\033[0m damage.")
+            #Effects.Effect_Applier("Buff","Corruption_Touched",1,1,Full_Effects)    how to applie?
             return CorruptionDMG
     else:
         print(CorruptionDMG,"\033[35mCorruption\033[0m damage.")
@@ -150,7 +152,7 @@ def HealMultCalc(Victim,Full_Effects):
     return Multiplier  #a heal szorzoját adja vissza de 100 al elkell osztani
     
 def RegenCalc(Victim,Full_Effects):
-    HealDMG = Full_Effects["Regen"]["Heal"]*(HealMultCalc(Victim,Full_Effects)/100)
+    HealDMG = Full_Effects["Regen"]["Dmg"]*(HealMultCalc(Victim,Full_Effects)/100)
     HealDMG = int(round(HealDMG,0))
     if HealDMG < 1:
         print("Nothing.")

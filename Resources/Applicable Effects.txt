@@ -4,7 +4,7 @@ Name, Duration, Dmg/Heal
     Positive:
         "Regen":{
             "Duration":2,
-            "Heal":25
+            "Dmg":25
         },
         
 

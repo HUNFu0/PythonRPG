@@ -1,3 +1,7 @@
+import Status_checker
+import Effects
+import random
+
 def ArmoreCalc(FlatArmore,FlatPen,ArmoreShred,PercentPen):
     FlatArmore-=FlatPen
     PercentArmore = 0
@@ -57,7 +61,6 @@ def ArmoreCalc(FlatArmore,FlatPen,ArmoreShred,PercentPen):
     return int(round(PercentArmore,0))  #menyi armorja van %ban
 
 def DodgeCalc(Speed,Crit):
-    import random
     rand=random.randint(1,10000)
     Speed-=int(round(Crit*0.8,0))
     print(Speed)
@@ -75,7 +78,6 @@ def DodgeCalc(Speed,Crit):
 
 
 def PoisonClac(Victim,PoisonDMG):
-    import Status_checker
     if Status_checker.has_effect(Victim,"Poison_Immune") == True:
         print("no \033[92mPoison\033[0m damage.")
         return 0
@@ -97,7 +99,6 @@ def PoisonClac(Victim,PoisonDMG):
     ########### Slottonként 1x fogadja el az érzékenységet és ellenállást
 
 def FireClac(Victim,FireDMG):
-    import Status_checker
     Modifier = 10    ##### Base DMG
     Modifier -= Status_checker.how_many_effect(Victim,"Fire_Resistant")
     Modifier += Status_checker.how_many_effect(Victim,"Fire_Vulnerable")
@@ -114,30 +115,24 @@ def FireClac(Victim,FireDMG):
     ############################
 
 def CorruptionClac(Victim,Full_Effects):
-    import Status_checker
     from Effects import Effect_checker
-    import Effects
     CorruptionDMG = Full_Effects["Corruption"]["Dmg"]
     if Effect_checker(Full_Effects,"Corruption_Touched"):
         multiplier = (Full_Effects["Corruption_Touched"]["Amount"]*0.15)+1
         CorruptionDMG = int(round(CorruptionDMG*multiplier,0))
 
     if Status_checker.has_effect(Victim,"Corruption_Resistant") == True:
-        CorruptionDMG = int(round(CorruptionDMG*0.75,0))
-        if CorruptionDMG < 1:
-            print("no \033[35mCorruption\033[0m damage.")
-            return 0
-        else:
-            print(CorruptionDMG,"\033[35mCorruption\033[0m damage.")
-            #Effects.Effect_Applier("Buff","Corruption_Touched",1,1,Full_Effects)    how to applie?
-            return CorruptionDMG
+        CorruptionDMG = int(round(CorruptionDMG*0.95,0))
+        Effects.Effect_Applier("Dot","Corruption",-1,0,Full_Effects)
+    if CorruptionDMG < 1:
+        print("no \033[35mCorruption\033[0m damage.")
+        return 0
     else:
         print(CorruptionDMG,"\033[35mCorruption\033[0m damage.")
+        Effects.Effect_Applier("Buff","Corruption_Touched",2,1,Full_Effects)
         return CorruptionDMG  ###Maga a DMG amit sebezni fog
     
 def HealMultCalc(Victim,Full_Effects):
-    import Status_checker
-    import Effects
     Multiplier = 100
     if Status_checker.how_many_effect(Victim,"Accelerated_Healing") >0:
         Multiplier += 6 + ((Status_checker.how_many_effect(Victim,"Accelerated_Healing"))*4)
@@ -160,7 +155,14 @@ def RegenCalc(Victim,Full_Effects):
         print(HealDMG,"\033[32mHealth\033[0m.")
     return HealDMG
 
-
-#print(DodgeCalc(400,0))
-#print(ArmoreCalc(1500,25,60,8))
-
+def ShieldedCalc(Dmg,Full_Effects):
+    if Effects.Effect_checker(Full_Effects,"Shielded"):
+        Remaining_shield = Full_Effects["Shielded"]["Amount"] - Dmg
+        if Remaining_shield < 1:
+            _ = Dmg - Full_Effects["Shielded"]["Amount"]
+            Effects.Effect_Remover("Shielded",Full_Effects)
+            return _  #A Sebzést NEM védte ki teljesen de részét blokkolta
+        else:
+            Effects.Effect_Applier("Buff","Shielded",0,-Dmg,Full_Effects)
+            return 0 #a sebzést teljesen kivédte a pajzs
+    else: return Dmg  # Nem volt pajzsa a felhasználónak

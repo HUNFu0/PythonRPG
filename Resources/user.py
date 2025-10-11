@@ -94,4 +94,36 @@ Hero={
         
     }
 
-
+effects={
+    "Poison":{
+        "Duration":20,
+        "Dmg":10
+    },
+    "Fire":{
+        "Duration":4,
+        "Dmg":45
+    },
+    "Corruption":{
+        "Duration":2,
+        "Dmg":70
+    },
+    "Corruption_Touched":{
+        "Duration":2,
+        "Amount":1
+    },
+    
+    "Regen":{
+        "Duration":2,
+        "Dmg":45
+    },
+    "Shielded":{
+        "Duration":2,
+        "Amount":51
+    },
+    "Heal_Increase":{
+        "Duration":2
+    },
+    #"Heal_Decrease":{
+    #    "Duration":2
+    #}
+}

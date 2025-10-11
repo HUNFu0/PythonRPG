@@ -28,7 +28,7 @@ Name, Duration, Amount
 
     Positive:
         "Shielded":{
-            "Duration":2,
+            "Duration":1,
             "Amount":80
         }
         

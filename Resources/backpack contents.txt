@@ -1,20 +1,28 @@
-"Slot1":{
+"Slotn":{
     "Type":"Item",
     "Name":"Potion of healing",
     "Effect":{
         "Heal":{
-            "InCombat":True,
+            "Condition":None,
             "Type":"Flat",
             "Amount":35
         }
     }
 },
 
-"Slot2":{
+"Slotn":{
     "Type":"Artifact",
     "Name":"Magic enabler",
     "Effect":{
         "MagicCrit":True,
         "Poison_Immune":True
+    }
+},
+
+"Slotn":{
+    "Type":"Artifact",
+    "Name":"OverHealth Artifact",
+    "Effect":{
+        "HealingToShield":True
     }
 },

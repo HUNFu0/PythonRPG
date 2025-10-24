@@ -1,8 +1,4 @@
 Equipment modifiers:
-    "FutureSight":True,
-    "MagicCrit":True,
-    "PhysicalCrit":True,
-    "StrikeFirst":True,
     "Poison_Resistant":True,
     "Poison_Immune":True,
     "Corruption_Resistant",True,
@@ -13,3 +9,8 @@ Equipment modifiers:
 
     #to be added:
     "Immortal":True,
+    "HealingToShield":True,
+    "FutureSight":True,
+    "MagicCrit":True,
+    "PhysicalCrit":True,
+    "StrikeFirst":True,

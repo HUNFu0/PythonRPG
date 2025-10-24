@@ -22,8 +22,11 @@ armore% - pen%
 
 
 
-#Speed calc
+#Dodge calc
 #rand(0,10 000)
+speed -= crit*0.8
+speed - 50% if In_Air
+speed = 0 if stunned
 #if rand < speed:
 #   0% dmg
 #elif rand< speed*2
@@ -44,6 +47,7 @@ Dot
             -100% dmg
         Poison_Resistant:
             -40% dmg
+            -6 dur/kor
     
     Fire:
         Fire_Resistant:
@@ -56,7 +60,7 @@ Dot
             +15% / stack
         Corruption_Resistant:
             -5% dmg
-            -1 Duration/Round
+            -40 Duration / turn
 
     Heal:
         Heal_Increase:

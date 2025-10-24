@@ -1,6 +1,7 @@
 import Status_checker
 import Effects
 import random
+import History
 
 def ArmoreCalc(FlatArmore,FlatPen,ArmoreShred,PercentPen):
     FlatArmore-=FlatPen
@@ -60,10 +61,19 @@ def ArmoreCalc(FlatArmore,FlatPen,ArmoreShred,PercentPen):
         PercentArmore=0
     return int(round(PercentArmore,0))  #menyi armorja van %ban
 
-def DodgeCalc(Speed,Crit):
+def SpeedCalc(Speed,Stunned,In_Air):
+    if Stunned:
+        return 0
+    if In_Air:
+        Speed= Speed/2
+    return int(round(Speed,0))
+
+
+def DodgeCalc(Speed,Crit,Stunned,In_Air):
     rand=random.randint(1,10000)
-    Speed-=int(round(Crit*0.8,0))
-    print(Speed)
+    Speed=SpeedCalc(Speed,Stunned,In_Air)
+    Speed -= Crit*0.8
+    Speed=int(round(Speed,0))
     DamageAvoided = 0
     if rand < Speed:
         DamageAvoided = 100
@@ -77,23 +87,18 @@ def DodgeCalc(Speed,Crit):
 
 
 
-def PoisonClac(Victim,PoisonDMG):
-    if Status_checker.has_effect(Victim,"Poison_Immune") == True:
+def PoisonClac(Victim,Full_Effects):
+    PoisonDMG = Full_Effects["Poison"]["Dmg"]
+    if Status_checker.has_effect(Victim,"Poison_Resistant") == True:
+        PoisonDMG = int(round(PoisonDMG*0.60,0))
+        Effects.Effect_Applier("Dot","Poison",-6,0,Full_Effects)
+    if Status_checker.has_effect(Victim,"Poison_Immune") == True or PoisonDMG < 1:
         print("no \033[92mPoison\033[0m damage.")
         return 0
-    elif Status_checker.has_effect(Victim,"Poison_Resistant") == True:
-        PoisonDMG = int(round(PoisonDMG*0.60,0))
-        if PoisonDMG < 1:
-            print("no \033[92mPoison\033[0m damage.")
-            return 0
-        else:
-            print(PoisonDMG,"\033[92mPoison\033[0m damage.")
-            return PoisonDMG
     else:
         print(PoisonDMG,"\033[92mPoison\033[0m damage.")
-        return PoisonDMG
+        return PoisonDMG, Full_Effects
                 ###Maga a DMG amit sebezni fog
-
 
 
     ########### Slottonként 1x fogadja el az érzékenységet és ellenállást
@@ -123,13 +128,13 @@ def CorruptionClac(Victim,Full_Effects):
 
     if Status_checker.has_effect(Victim,"Corruption_Resistant") == True:
         CorruptionDMG = int(round(CorruptionDMG*0.95,0))
-        Effects.Effect_Applier("Dot","Corruption",-1,0,Full_Effects)
+        Effects.Effect_Applier("Dot","Corruption",-40,0,Full_Effects)
     if CorruptionDMG < 1:
         print("no \033[35mCorruption\033[0m damage.")
         return 0
     else:
         print(CorruptionDMG,"\033[35mCorruption\033[0m damage.")
-        Effects.Effect_Applier("Buff","Corruption_Touched",2,1,Full_Effects)
+        Effects.Effect_Applier("Buff","Corruption_Touched",200,1,Full_Effects)
         return CorruptionDMG  ###Maga a DMG amit sebezni fog
     
 def HealMultCalc(Victim,Full_Effects):
@@ -145,6 +150,31 @@ def HealMultCalc(Victim,Full_Effects):
     if Effects.Effect_checker(Full_Effects,"Heal_Decrease") == True:
         Multiplier -= 35
     return Multiplier  #a heal szorzoját adja vissza de 100 al elkell osztani
+
+###look
+def HealCalc(Victim,Full_Effects,Condition):
+    maxh = 0
+    missingh = 0
+    flath = 0
+    for elem in Victim["Equipment"]:
+        try:
+            if Victim["Equipment"][elem]["Effect"]["Heal"]["Condition"] == Condition and Victim["Equipment"][elem]["Type"] != "Item":
+                if Victim["Equipment"][elem]["Effect"]["Heal"]["Type"] == "MaxHealth":
+                    maxh += Victim["Equipment"][elem]["Effect"]["Heal"]["Amount"]
+                elif Victim["Equipment"][elem]["Effect"]["Heal"]["Type"] == "MissingHealth":
+                    missingh += Victim["Equipment"][elem]["Effect"]["Heal"]["Amount"]
+                elif Victim["Equipment"][elem]["Effect"]["Heal"]["Type"] == "Flat":
+                    flath += Victim["Equipment"][elem]["Effect"]["Heal"]["Amount"]
+                else:
+                    print("Debug: healing Type error")
+        except:
+            pass
+    maxh= Victim["Max_Hp"]*(maxh/100)
+    missingh = ((((((Victim["Hp"]/Victim["Max_Hp"])*100)-100)*-1)/100)*Victim["Max_Hp"])*(missingh/100)
+    flath += maxh + missingh
+    flath = flath * (HealMultCalc(Victim,Full_Effects)/100)
+    return int(round(flath,0))
+
     
 def RegenCalc(Victim,Full_Effects):
     HealDMG = Full_Effects["Regen"]["Dmg"]*(HealMultCalc(Victim,Full_Effects)/100)
@@ -166,3 +196,4 @@ def ShieldedCalc(Dmg,Full_Effects):
             Effects.Effect_Applier("Buff","Shielded",0,-Dmg,Full_Effects)
             return 0 #a sebzést teljesen kivédte a pajzs
     else: return Dmg  # Nem volt pajzsa a felhasználónak
+

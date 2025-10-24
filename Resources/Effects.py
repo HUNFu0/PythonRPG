@@ -3,7 +3,7 @@ def EffectsDMG(Full_Effects,Victim):
     Total = 0
     if Effect_checker(Full_Effects,"Poison") == True:
         print("You take ",end="")
-        Total+=DmgCalc.PoisonClac(Victim,Full_Effects["Poison"]["Dmg"])
+        Total, Full_Effects=DmgCalc.PoisonClac(Victim,Full_Effects)
     
     if Effect_checker(Full_Effects,"Fire") == True:
         print("You take ",end="")
@@ -22,8 +22,25 @@ def EffectsDMG(Full_Effects,Victim):
 def Effect_Duration(Full_Effects):
     index=[]
     for elem in Full_Effects:
-        Full_Effects[elem]["Duration"] -= 1
-        if Full_Effects[elem]["Duration"] < 1: index.append(elem)
+        try:
+            if Full_Effects[elem]["Dmg"] < 1:
+                index.append(elem)
+                continue
+        except: pass
+        Full_Effects[elem]["Duration"] -= 100
+        if Full_Effects[elem]["Duration"] < 1: 
+            index.append(elem)
+            continue
+        elif Full_Effects[elem]["Duration"] < 100:
+            try:
+                Full_Effects[elem]["Dmg"]*=(Full_Effects[elem]["Duration"]/100)
+                Full_Effects[elem]["Dmg"]=int(round(Full_Effects[elem]["Dmg"],0))
+                if Full_Effects[elem]["Dmg"] < 1: 
+                    index.append(elem)
+                    continue
+            except: 
+                index.append(elem)
+                continue
     while len(index)>0:
         del Full_Effects[index[0]]
         index.pop(0)

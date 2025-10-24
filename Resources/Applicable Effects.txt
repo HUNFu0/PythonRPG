@@ -3,22 +3,22 @@ Name, Duration, Dmg/Heal
 
     Positive:
         "Regen":{
-            "Duration":2,
+            "Duration":200,
             "Dmg":25
         },
         
 
     Negative:
         "Poison":{
-            "Duration":20,
+            "Duration":2000,
             "Dmg":10
         },
         "Fire":{
-            "Duration":4,
+            "Duration":400,
             "Dmg":45
         },
         "Corruption":{
-            "Duration":2,
+            "Duration":200,
             "Dmg":70
         },
 
@@ -28,14 +28,14 @@ Name, Duration, Amount
 
     Positive:
         "Shielded":{
-            "Duration":1,
+            "Duration":100,
             "Amount":80
         }
         
 
     Negative:
         "Corruption_Touched":{
-            "Duration":2,
+            "Duration":200,
             "Amount":1
         }
         
@@ -45,32 +45,35 @@ Name, Duration
 
     Positive:
         "Immortal":{
-            "Duration":2
+            "Duration":200
+        },
+        "Invulnerable":{
+            "Duration":200
         },
         "Miasma":{
-            "Duration":2
+            "Duration":200
         },
 
         "Heal_Increase":{
-            "Duration":2
+            "Duration":200
         }
     
     Negative:
         "Disarmed":{
-            "Duration":2
+            "Duration":200
         },
         "In_Air":{
-            "Duration":2
+            "Duration":200
         },
         "Stunned":{
-            "Duration":2
+            "Duration":200
         },
         "Fragile":{
-            "Duration":2
+            "Duration":200
         },
         "Weak":{
-            "Duration":2
+            "Duration":200
         },
         "Heal_Decrease":{
-            "Duration":2
+            "Duration":200
         }

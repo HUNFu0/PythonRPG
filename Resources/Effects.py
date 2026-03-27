@@ -16,8 +16,7 @@ def EffectsDMG(Full_Effects,Victim):
     if Effect_checker(Full_Effects, "Regen") == True:
         print("You heal ", end="")
         Total-=DmgCalc.RegenCalc(Victim,Full_Effects)
-    Total=int(round(Total,0))
-    return Total
+    return int(round(Total,0))
 
 def Effect_Duration(Full_Effects):
     index=[]
@@ -87,5 +86,8 @@ def Effect_Applier(Type,Name,Duration,Amount,Full_Effects):
     return Full_Effects
 
 def Effect_Remover(Effect,Full_Effects):
-    del Full_Effects[Effect]
+    try:
+        del Full_Effects[Effect]
+    except:
+        print(f"It was not suffering from {Effect}")
     return Full_Effects

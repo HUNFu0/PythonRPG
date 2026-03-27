@@ -17,6 +17,7 @@ user.Hero["Hp"] -= EffectsDMG(user.effects,user.Hero)
 #user.effects = Effects.Effect_Applier("Dot","Poipon",500,2,user.effects)
 #EFFECT REMOVER TEST
 #Effects.Effect_Remover("Poipon",user.effects)
+#Effects.Effect_Remover("Poipon",user.effects)
 #print()
 
 #SHIELDED EFFECT TEST (Duration 2)

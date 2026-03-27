@@ -1,0 +1,51 @@
+_Item_:{
+	_Effect1_:True,
+	_Effect2_:True,
+	Action1:{
+		_Physical_, _Magic_, _Heal_, _Effect_applie_, _Effect_remove_:{
+			Target: _Self_, _Enemy_, _All_,
+			Amount:_Amount_,
+			"Type":_Max_HP_, _Missing_HP_, _Flat_, Fire, Poision
+			
+			"Duration":1-∞
+			
+		_Physical_, _Magic_, _Heal_, _Effect_applie_, _Effect_remove_:{
+			Target: _Self_, _Enemy_, _All_,
+			Amount:_Amount_
+			"Type":_Max_HP_, _Missing_HP_, _Flat_, Fire, Poision
+			
+			"Duration":1-∞
+			
+
+		Condition:{
+			Condition_Type: _Single_, _Multiple_, _Any_,
+			_Times_In_Life_, _Times_In_Fight_: 1-"Any"
+			Left:1-"Any"
+			Conditio1: _Battle_start_, _Battle_end_, _On_hit_, _On_cast_, _On_crit_, _Before_death_, _Turn_X_, _HP_below_, _HP_above_
+				   _Has_effect_, _Has_status_, _Has_status_X:Amount
+			Conditio2:Condition,
+
+	Action2:{
+		Action_name:{
+			Target:Target,
+			Type:Type,
+			Amount:Amount
+		Condition:{
+			Condition_Type:Type,
+			Conditio1:Condition,
+			Conditio2:Condition,
+
+
+
+	
+	_Action_name_:{
+			Target: _Self_,
+			Type: _Effect_applie_,
+			Amount:_Amount_
+
+
+	_Action_name_:{
+			Target: _Self_,
+			Type: _Effect_remove_,
+			Amount:_Amount_
+

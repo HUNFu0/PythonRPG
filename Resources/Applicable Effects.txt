@@ -56,6 +56,9 @@ Name, Duration
 
         "Heal_Increase":{
             "Duration":200
+        },
+        "Strenght":{
+            "Duration":200
         }
     
     Negative:
@@ -71,7 +74,7 @@ Name, Duration
         "Fragile":{
             "Duration":200
         },
-        "Weak":{
+        "Weakend":{
             "Duration":200
         },
         "Heal_Decrease":{

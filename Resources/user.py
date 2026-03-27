@@ -47,7 +47,7 @@ Hero={
             "Effect":{
                 "Accelerated_Healing":True,
                 "Heal":{
-                    "Condition":"AfterCombat",
+                    "Condition":"AfterCombat" and "BeforeCombat",
                     "Type":"MissingHealth",
                     "Amount":30
                 }
@@ -71,7 +71,7 @@ Hero={
             }
         },
 
-        "Backpack_lvl":1,
+        #"Backpack_lvl":1,
         "Slot1":{
             "Type":"Item",
             "Name":"Potion of healing",
@@ -84,7 +84,6 @@ Hero={
                 #"Accelerated_Healing":True,
                 #"Deceleration_Healing":True,
                 "Heal":{
-                    "Condition":None,
                     "Type":"Flat",
                     "Amount":35
                 }

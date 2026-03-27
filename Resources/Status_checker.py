@@ -16,3 +16,19 @@ def how_many_effect(hero, effect_name):
             if effect and effect_name in effect:
                 effect_number += 1
     return effect_number
+
+def has_condition(hero, condition):
+    what_to_trigger=[]
+    for slot in hero["Equipment"]:
+        item = hero["Equipment"][slot]
+        try:
+            for elem in item["Effect"]:
+                cond = item["Effect"][elem]
+                if isinstance(cond, dict): 
+                    if cond["Condition"] == condition:
+                        what_to_trigger.append(cond)
+        except: pass
+    return what_to_trigger
+
+import user
+print(has_condition(user.Hero,"AfterCombat"))
